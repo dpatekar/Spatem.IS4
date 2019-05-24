@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="NSwag.AspNetCore" Version="12.3.0" />   
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Spatem.Core\Spatem.Core.csproj" />
+    <ProjectReference Include="..\Spatem.Data.Ef\Spatem.Data.Ef.csproj" />
+  </ItemGroup>   
+  
+</Project>
