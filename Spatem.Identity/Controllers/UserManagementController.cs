@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IdentityModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Spatem.Core.Identity;
 using Spatem.Identity.IdentityServer;
@@ -37,7 +38,7 @@ namespace Spatem.Api.Controllers
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
-            string role = "Basic User";
+            string role = "Admin";
 
             if (result.Succeeded)
             {
@@ -46,11 +47,7 @@ namespace Spatem.Api.Controllers
                     await _roleManager.CreateAsync(new IdentityRole(role));
                 }
                 await _userManager.AddToRoleAsync(user, role);
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("userName", user.UserName));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("firstName", user.FirstName));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("lastName", user.LastName));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", role));
+                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(JwtClaimTypes.Email, user.Email));
 
                 return Ok(new ProfileViewModel(user));
             }

@@ -51,10 +51,12 @@ namespace Spatem.Identity
                 settings.PostProcess = document =>
                 {
                     document.Info.Version = "v1";
-                    document.Info.Title = "Spatem API";
+                    document.Info.Title = "Spatem Identity API";
                     document.Info.Description = "REST API";
                 };
             });
+
+            Seed.EnsureSeedData(services.BuildServiceProvider());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
