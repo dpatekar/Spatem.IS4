@@ -11,12 +11,14 @@ namespace Spatem.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -26,12 +28,13 @@ namespace Spatem.Api
             .AddJwtBearer(options =>
             {
                 options.Authority = "http://localhost:5001";
-                options.Audience = "api1";
-                options.RequireHttpsMetadata = false;
+                options.Audience = "spatem.api";
+                options.RequireHttpsMetadata = !Environment.IsDevelopment();
             });
 
             services.AddDataContext(Configuration.GetConnectionString("SpatemConnection"));
 
+            //TODO: add auth to swagger
             services.AddSwaggerDocument(settings =>
             {
                 settings.PostProcess = document =>

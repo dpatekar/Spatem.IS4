@@ -31,6 +31,7 @@ namespace Spatem.Identity
                 .AddDefaultTokenProviders();
 
             services.AddIdentityServer()
+                //TODO: add cert generating logic
                 .AddDeveloperSigningCredential(true, "tempkey.rsa")
                 .AddOperationalStore(options =>
                 {
@@ -46,6 +47,7 @@ namespace Spatem.Identity
                 })
                 .AddAspNetIdentity<ApplicationUser>();
 
+            //TODO: add auth to swagger
             services.AddSwaggerDocument(settings =>
             {
                 settings.PostProcess = document =>
@@ -55,8 +57,6 @@ namespace Spatem.Identity
                     document.Info.Description = "REST API";
                 };
             });
-
-            Seed.EnsureSeedData(services.BuildServiceProvider());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

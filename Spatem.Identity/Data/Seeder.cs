@@ -1,25 +1,14 @@
-﻿using IdentityModel;
-using IdentityServer4.EntityFramework.DbContexts;
+﻿using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using System.Security.Claims;
 
-namespace Spatem.Identity
+namespace Spatem.Data.Identity
 {
-    public class Seed
+    public class Seeder
     {
-        public static void EnsureSeedData(IServiceProvider serviceProvider)
-        {
-            Console.WriteLine("Seeding database...");
-            EnsureSeedData(serviceProvider.GetRequiredService<ConfigurationDbContext>());
-            Console.WriteLine("Done seeding database.");
-        }
-
-        private static void EnsureSeedData(ConfigurationDbContext context)
+        public static void SeedConfigurationData(ConfigurationDbContext context)
         {
             if (!context.Clients.Any())
             {
