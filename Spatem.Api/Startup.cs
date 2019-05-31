@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using IdentityModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using NSwag.AspNetCore;
 using Spatem.Data.Ef;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Spatem.Api
 {
@@ -24,12 +28,18 @@ namespace Spatem.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
                 options.Authority = "http://localhost:5001";
                 options.Audience = "spatem.api";
                 options.RequireHttpsMetadata = !Environment.IsDevelopment();
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    NameClaimType = JwtClaimTypes.Name,
+                    RoleClaimType = JwtClaimTypes.Role
+                };
             });
 
             services.AddDataContext(Configuration.GetConnectionString("SpatemConnection"));

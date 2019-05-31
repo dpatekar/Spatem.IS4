@@ -5,7 +5,7 @@ using System.Linq;
 namespace Spatem.Api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     public class IdentityController : ControllerBase
     {
         [HttpGet]

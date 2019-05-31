@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Spatem.Core.Identity;
 using Spatem.Data.Ef;
+using Spatem.Identity.Extensions;
 using System.Reflection;
 
 namespace Spatem.Identity
@@ -29,6 +30,8 @@ namespace Spatem.Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddIdentityDataContext()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AppClaimsPrincipalFactory>();
 
             services.AddIdentityServer()
                 //TODO: add cert generating logic

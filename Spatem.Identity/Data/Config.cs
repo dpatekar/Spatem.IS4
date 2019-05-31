@@ -11,7 +11,7 @@ namespace Spatem.Data.Identity
         {
             return new List<ApiResource>
             {
-                new ApiResource("spatem.api", "Spatem API", new string[]{ JwtClaimTypes.Role, JwtClaimTypes.Email })
+                new ApiResource("spatem.api", "Spatem API", new string[]{ JwtClaimTypes.Role, JwtClaimTypes.Email, JwtClaimTypes.GivenName, JwtClaimTypes.FamilyName })
             };
         }
 

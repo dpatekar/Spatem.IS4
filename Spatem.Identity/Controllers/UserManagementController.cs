@@ -34,7 +34,7 @@ namespace Spatem.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+            var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
 
             var result = await _userManager.CreateAsync(user, model.Password);
             // TODO: define roles externally
@@ -47,8 +47,8 @@ namespace Spatem.Api.Controllers
                     await _roleManager.CreateAsync(new IdentityRole(role));
                 }
                 await _userManager.AddToRoleAsync(user, role);
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(JwtClaimTypes.GivenName, model.FirstName));
-                await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(JwtClaimTypes.FamilyName, model.LastName));
+                //await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(JwtClaimTypes.GivenName, model.FirstName));
+                //await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(JwtClaimTypes.FamilyName, model.LastName));
 
                 return Ok(new ProfileViewModel(user));
             }
