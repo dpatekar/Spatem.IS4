@@ -11,7 +11,7 @@ namespace Spatem.Data.Identity
         {
             return new List<ApiResource>
             {
-                new ApiResource("spatem.api", "Spatem API", new string[]{ JwtClaimTypes.Role, JwtClaimTypes.Email, JwtClaimTypes.GivenName, JwtClaimTypes.FamilyName })
+                new ApiResource("spatem.api", "Spatem API", new string[]{ JwtClaimTypes.Role, JwtClaimTypes.Email, JwtClaimTypes.GivenName, JwtClaimTypes.FamilyName, JwtClaimTypes.Name })
             };
         }
 
@@ -38,8 +38,6 @@ namespace Spatem.Data.Identity
                     },
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
                         "spatem.api"
                     }
                 },
@@ -54,7 +52,6 @@ namespace Spatem.Data.Identity
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
                         "spatem.api"
                     },
                     AllowOfflineAccess = false

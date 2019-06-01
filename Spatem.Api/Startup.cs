@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using NSwag.AspNetCore;
 using Spatem.Data.Ef;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace Spatem.Api
 {

@@ -1,6 +1,5 @@
 ﻿using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
