@@ -46,7 +46,6 @@ namespace Spatem.Data.Identity
                     ClientId = "spatem.vue",
                     ClientName = "VUE Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
-
                     RedirectUris = { "http://localhost:5005/signin-oidc" },
                     PostLogoutRedirectUris = { "http://localhost:5005/signout-callback-oidc" },
                     AllowedScopes =
@@ -54,7 +53,23 @@ namespace Spatem.Data.Identity
                         IdentityServerConstants.StandardScopes.OpenId,
                         "spatem.api"
                     },
-                    AllowOfflineAccess = false
+                    AllowOfflineAccess = false,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false
+                },
+                new Client
+                {
+                    ClientId = "spatem.swagger",
+                    ClientName = "Swagger Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    RedirectUris = { "http://localhost:5005/swagger/oauth2-redirect.html" },
+                    AllowedScopes =
+                    {
+                        "spatem.api"
+                    },
+                    AllowOfflineAccess = false,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false
                 }
             };
         }
