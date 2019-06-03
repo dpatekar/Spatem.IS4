@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Spatem.Api.Swagger;
 using Spatem.Data.Ef;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -43,7 +42,7 @@ namespace Spatem.Api
 
             services.AddDataContext(Configuration.GetConnectionString("SpatemConnection"));
 
-            services.AddSwaggerDocument();
+            services.AddOpenApiDocument();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -51,8 +50,9 @@ namespace Spatem.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+                app.UseSwaggerUi();
             }
+            app.UseOpenApiDoc();
             app.UseAuthentication();
             app.UseMvc();
         }

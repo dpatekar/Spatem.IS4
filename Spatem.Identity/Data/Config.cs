@@ -39,7 +39,9 @@ namespace Spatem.Data.Identity
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         "spatem.api"
-                    }
+                    },
+                    AllowOfflineAccess = true,
+                    RequireConsent = false
                 },
                 new Client
                 {
@@ -62,12 +64,11 @@ namespace Spatem.Data.Identity
                     ClientId = "spatem.swagger",
                     ClientName = "Swagger Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    RedirectUris = { "http://localhost:5005/swagger/oauth2-redirect.html" },
+                    RedirectUris = { "http://localhost:5000/swagger/oauth2-redirect.html" },
                     AllowedScopes =
                     {
                         "spatem.api"
                     },
-                    AllowOfflineAccess = false,
                     AllowAccessTokensViaBrowser = true,
                     RequireConsent = false
                 }
