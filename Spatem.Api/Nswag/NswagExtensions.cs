@@ -16,7 +16,7 @@ namespace Microsoft.AspNetCore.Builder
             {
                 document.Title = "Spatem API";
                 document.AddSecurity("bearer", Enumerable.Empty<string>(), new SwaggerSecurityScheme
-                {                    
+                {
                     Type = SwaggerSecuritySchemeType.OAuth2,
                     Flows = new OpenApiOAuthFlows()
                     {
@@ -26,11 +26,16 @@ namespace Microsoft.AspNetCore.Builder
                             {
                                 { "spatem.api", "Spatem API" }
                             },
-                            AuthorizationUrl = "http://localhost:5001/connect/authorize"                       
-                        }                        
-                  
+                            AuthorizationUrl = "http://localhost:5001/connect/authorize"
+                        }
+
                     }
-                });
+                });                
+                document.PostProcess = swaggerDocument => {
+                    //Remove api level security requirenment
+                    swaggerDocument.Security = null;
+                };
+                //Add method level security requirenment
                 document.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("bearer"));
             });
         }
