@@ -20,16 +20,13 @@ namespace Microsoft.AspNetCore.Builder
                     Type = SwaggerSecuritySchemeType.OAuth2,
                     Flows = new OpenApiOAuthFlows()
                     {
-                        AuthorizationCode = new OpenApiOAuthFlow()
+                        Implicit = new OpenApiOAuthFlow()
                         {
                             Scopes = new Dictionary<string, string>
                             {
-                                { "openid", "openid" },
                                 { "spatem.api", "Spatem API" }
                             },
-                            AuthorizationUrl = "http://localhost:5001/connect/authorize",
-                            TokenUrl = "http://localhost:5001/connect/token",
-                            RefreshUrl = "http://localhost:5001/connect/token",                            
+                            AuthorizationUrl = "http://localhost:5001/connect/authorize"                       
                         }                        
                   
                     }
