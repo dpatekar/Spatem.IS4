@@ -1,4 +1,4 @@
-﻿using Spatem.Core.Identity;
+﻿using Spatem.Core.Models;
 
 namespace Spatem.Identity.IdentityServer
 {

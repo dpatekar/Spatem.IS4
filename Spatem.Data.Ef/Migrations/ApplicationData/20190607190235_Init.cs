@@ -155,6 +155,54 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Wallets",
+                columns: table => new
+                {
+                    WalletId = table.Column<long>(nullable: false),
+                    Created = table.Column<DateTime>(type: "Date", nullable: false, defaultValueSql: "GetDate()"),
+                    Overdraft = table.Column<long>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wallets", x => x.WalletId);
+                    table.ForeignKey(
+                        name: "FK_Wallets_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transactions",
+                columns: table => new
+                {
+                    TransactionId = table.Column<long>(nullable: false),
+                    Amount = table.Column<decimal>(nullable: false),
+                    ParticipantName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    TransactionRefTransactionId = table.Column<long>(nullable: true),
+                    WalletId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transactions", x => x.TransactionId);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Transactions_TransactionRefTransactionId",
+                        column: x => x.TransactionRefTransactionId,
+                        principalTable: "Transactions",
+                        principalColumn: "TransactionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Wallets_WalletId",
+                        column: x => x.WalletId,
+                        principalTable: "Wallets",
+                        principalColumn: "WalletId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -193,6 +241,21 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_TransactionRefTransactionId",
+                table: "Transactions",
+                column: "TransactionRefTransactionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_WalletId",
+                table: "Transactions",
+                column: "WalletId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Wallets_UserId",
+                table: "Wallets",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -213,7 +276,13 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Transactions");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Wallets");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

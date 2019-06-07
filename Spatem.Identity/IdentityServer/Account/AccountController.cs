@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Spatem.Core.Identity;
+using Spatem.Core.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

@@ -28,10 +28,10 @@ namespace Microsoft.AspNetCore.Builder
                             },
                             AuthorizationUrl = "http://localhost:5001/connect/authorize"
                         }
-
                     }
-                });                
-                document.PostProcess = swaggerDocument => {
+                });
+                document.PostProcess = swaggerDocument =>
+                {
                     //Remove api level security requirenment
                     swaggerDocument.Security = null;
                 };

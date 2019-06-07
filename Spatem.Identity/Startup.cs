@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Spatem.Core.Identity;
+using Spatem.Core.Models;
 using Spatem.Data.Ef;
 using Spatem.Identity.Extensions;
 using System.Reflection;

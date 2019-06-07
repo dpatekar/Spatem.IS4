@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Spatem.Core.Identity;
+using Spatem.Core.Models;
 using Spatem.Identity.IdentityServer;
 using System.Threading.Tasks;
 

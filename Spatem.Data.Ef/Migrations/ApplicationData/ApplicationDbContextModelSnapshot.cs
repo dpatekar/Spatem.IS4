@@ -129,7 +129,7 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Spatem.Core.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("Spatem.Core.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -184,6 +184,51 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Spatem.Core.Models.Transaction", b =>
+                {
+                    b.Property<long>("TransactionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("ParticipantName");
+
+                    b.Property<long?>("TransactionRefTransactionId");
+
+                    b.Property<long?>("WalletId");
+
+                    b.HasKey("TransactionId");
+
+                    b.HasIndex("TransactionRefTransactionId");
+
+                    b.HasIndex("WalletId");
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("Spatem.Core.Models.Wallet", b =>
+                {
+                    b.Property<long>("WalletId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("Date")
+                        .HasDefaultValueSql("GetDate()");
+
+                    b.Property<long>("Overdraft");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("WalletId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Wallets");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -194,7 +239,7 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Spatem.Core.Identity.ApplicationUser")
+                    b.HasOne("Spatem.Core.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -202,7 +247,7 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Spatem.Core.Identity.ApplicationUser")
+                    b.HasOne("Spatem.Core.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -215,7 +260,7 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Spatem.Core.Identity.ApplicationUser")
+                    b.HasOne("Spatem.Core.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -223,10 +268,28 @@ namespace Spatem.Data.Ef.Migrations.ApplicationData
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Spatem.Core.Identity.ApplicationUser")
+                    b.HasOne("Spatem.Core.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Spatem.Core.Models.Transaction", b =>
+                {
+                    b.HasOne("Spatem.Core.Models.Transaction", "TransactionRef")
+                        .WithMany()
+                        .HasForeignKey("TransactionRefTransactionId");
+
+                    b.HasOne("Spatem.Core.Models.Wallet", "Wallet")
+                        .WithMany("Transactions")
+                        .HasForeignKey("WalletId");
+                });
+
+            modelBuilder.Entity("Spatem.Core.Models.Wallet", b =>
+                {
+                    b.HasOne("Spatem.Core.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

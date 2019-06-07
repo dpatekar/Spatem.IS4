@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Spatem.Data.Identity
 {
-    public class Config
+    public class IdentityServerConfiguration
     {
         public static IEnumerable<ApiResource> GetApiResources()
         {

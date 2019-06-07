@@ -19,7 +19,7 @@ namespace Spatem.Identity
 
                 if (hostingEnvironment.IsDevelopment())
                 {
-                    Seeder.SeedConfigurationData(services.GetRequiredService<ConfigurationDbContext>());
+                    IdentityServerSeeder.SeedConfigurationData(services.GetRequiredService<ConfigurationDbContext>());
                 }
             }
 

@@ -1,7 +1,7 @@
 ﻿using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Spatem.Core.Identity;
+using Spatem.Core.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
